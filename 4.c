@@ -1,20 +1,34 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <locale.h>
+
 void prac1();
-void prac2();
-void prac3();
-void dz4();
+int prac2();
+int prac3(int N);
+int dz4(int A, int B);
+
 int main() {
     setlocale(LC_ALL, "Ru");
     printf("Практика 4\n");
     printf("\nЗадание 1\n");
     prac1();
+
     printf("\nЗадание 2\n");
     prac2();
+
     printf("\nЗадание 3\n");
-    prac3();
+    int N;
+    printf("введите трехзначное число: ");
+    scanf("%d", &N);
+    prac3(N);
+
     printf("\nДомашнее задание\n");
-    dz4();
+    int A, B;
+    printf("введите номер кнопки, которую нажал игрок A: ");
+    scanf("%d", &A);
+    printf("введите номер кнопки, которую нажал игрок B: ");
+    scanf("%d", &B);
+    int usl = dz4(A, B);
+    printf("победили ли в раунде? (1 - да, 0 - нет): %d\n", usl);
     return 0;
 }
 void prac1()
@@ -23,26 +37,22 @@ void prac1()
     int i = 2;
     float f = 3.14f;
     double d = 5e-12;
-
+    double num;
+    char c1;
+    int i1;
     printf("char:   %c\n", c);
     printf("int:    %d\n", i);
     printf("float:  %.2f\n", f);
     printf("double: %e\n", d);
-
     printf("\nввод значений\n");
-
     printf("введите символ (char): ");
     scanf(" %c", &c);
-
     printf("введите целое число (int): ");
     scanf("%d", &i);
-
     printf("введите число с плавающей точкой (float): ");
     scanf("%f", &f);
-
     printf("введите число double: ");
     scanf("%lf", &d);
-
     printf("\nвы ввели:\n");
     printf("char:   %c\n", c);
     printf("int:    %d\n", i);
@@ -50,7 +60,6 @@ void prac1()
     printf("double: %e\n", d);
 
     printf("\nзадача 1a\n");
-    double num;
     printf("введите вещественное число: ");
     scanf("%lf", &num);
     int num_int = (int)num;
@@ -59,22 +68,19 @@ void prac1()
     printf("дробная часть: %g\n", num_frac);
 
     printf("\nзадача 1b\n");
-    char c1;
     printf("введите символ: ");
     scanf(" %c", &c1);
     printf("код в 16-ричной системе: %x\n", c1);
     printf("код в 10-ричной системе: %d\n", c1);
 
     printf("\nзадача 1c\n");
-    int i1;
     printf("введите целое число i: ");
     scanf("%d", &i1);
     double otv = 1.0 / i1;
     printf("1/%d:=%g\n", i1, otv);
-
 }
 
-void prac2() 
+int prac2()
 {
     int a = 11;
     int b = 3;
@@ -105,13 +111,12 @@ void prac2()
 
     printf("\nпояснение: я присвоила числам типы данных float и double и теперь программа считает их не целыми а дробными\n");
     printf("т.е. целое число 11 стало 11.0 и деление стало 11.0 / 3.0. в результате сохраняется дробная часть\n");
-}
-void prac3()
-{
-    int N;
-    printf("введите трехзначное число: ");
-    scanf("%d", &N);
 
+    return 0;
+}
+
+int prac3(int N)
+{
     int first = N / 100;
     int second = (N / 10) % 10;
     int last = N % 10;
@@ -119,18 +124,16 @@ void prac3()
     int sum = first + second + last;
     int naoborot = last * 100 + second * 10 + first;
 
-    printf("Последняя цифра: %d, первая цифра: %d, сумма цифр: %d, число наоборот: %d\n", last, first, sum, naoborot);
+    printf("последняя цифра: %d, первая цифра: %d, сумма цифр: %d, число наоборот: %d\n", last, first, sum, naoborot);
+
+    return 0;
 }
 
-void dz4() 
+int dz4(int A, int B)
 {
-    int A, B, uslovie;
-    printf("введите номер кнопки, которую нажал игрок A: ");
-    scanf("%d", &A);
-    printf("введите номер кнопки, которую нажал игрок B: ");
-    scanf("%d", &B);
-    uslovie = (A % 2 == 0 && B % 2 == 1) || (A % 2 == 1 && B % 2 == 0);
+    int uslovie = (A % 2 == 0 && B % 2 == 1) || (A % 2 == 1 && B % 2 == 0);
     printf("игрок A нажал %s кнопку.\n", (A % 2 == 0) ? "ЧЁТНУЮ" : "НЕЧЁТНУЮ");
     printf("игрок B нажал %s кнопку.\n", (B % 2 == 0) ? "ЧЁТНУЮ" : "НЕЧЁТНУЮ");
-    printf("победили ли в раунде? (1 - да, 0 - нет): %d\n", uslovie);
+
+    return uslovie;
 }
