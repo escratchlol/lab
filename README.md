@@ -31,7 +31,7 @@
 6. **Конец**
 
 ### Блок-схема
-![Блок-схема алгоритма] 
+
 <img width="238" height="864" alt="дз2" src="https://github.com/user-attachments/assets/01d530c7-d046-434d-abed-27306c24a746" />
 
 ## 2. Реализация программы
