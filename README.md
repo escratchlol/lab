@@ -47,7 +47,6 @@ int main() {
 	dz2();
 	return 0;
 }
-
 void dz2()
 {
 	float X = 7.0f;
