@@ -1,4 +1,4 @@
 Домашнее задание к работе 2
 Условие задачи
 Стоимость погонного метра красного шелка стоит X золотых. Сколько заплатил Грей за ткань для своей бригантины, если общая площадь парусов на ней S м², а ширина ткани в рулоне L см.
-<img width="200" height="674" alt="лабораторная2 drawio" src="https://github.com/user-attachments/assets/3bcbd73b-d9c5-4391-bfea-d5247a45386f" />
+<img width="238" height="864" alt="дз2" src="https://github.com/user-attachments/assets/01d530c7-d046-434d-abed-27306c24a746" />
