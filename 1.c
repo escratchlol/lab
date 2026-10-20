@@ -1,108 +1,78 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <locale.h>
-void prac1();
-void prac2();
-void prac3();
-void prac4();
-void name();
-void date();
-void dz1();
+#include <math.h>
+
+void task1(int m, int n);
+void task1A(int n, int m);
+void task2(double step);
+
 int main() {
-	setlocale(LC_ALL, "Ru");
-	printf("Практика 1\n");
-	printf("\nЗадание 1\n");
-	prac1();
-	printf("\nЗадание 2\n");
-	prac2();
-	printf("\nЗадание 3\n");
-	prac3();
-	printf("\nЗадание 4\n");
-	prac4();
-	printf("\nДомашнее задание\n");
-	dz1();
-	return 0;
-}
-void prac1()
-{
+    setlocale(LC_ALL, "Ru");
 
-	puts("Нажмите Enter для продолжения...");
+    printf("Задание 1\n\n");
+    int m, n;
+    printf("Введите m: ");
+    scanf("%d", &m);
+    printf("Введите n: ");
+    scanf("%d", &n);
+    task1(m, n);
 
-	getchar();
+    printf("\nЗадание 1A\n\n");
+    int nA, mA;
+    printf("Введите степень n: ");
+    scanf("%d", &nA);
+    printf("Введите целое число m: ");
+    scanf("%d", &mA);
+    task1A(nA, mA);
 
-	puts("Продолжение программы");
+    printf("\nЗадание 2\n\n");
+    double step;
+    printf("y = 1.8*x^2 - sin(10*x)\n");
+    printf("Введите шаг табуляции: ");
+    scanf("%lf", &step);
+    task2(step);
 
-}
-void prac2()
-{
-
-	puts("Моя программа,");
-
-	getchar();
-	puts("***************************************************");
-	puts("*                                                 *");
-	puts("*     тема: Разработка консольного приложения     *");
-	puts("*                                                 *");
-	puts("* выполнила: Лысюк Е.В. (группа бИД262-1)         *");
-	puts("*                                                 *");
-	puts("***************************************************");
-
-}
-void prac3()
-{
-
-	puts("Дата рождения");
-
-	getchar();
-
-	puts(" _    _     _   _     _    _ ");
-	puts("| |  |_    | |  _|   | |  |_|");
-	puts("|_|   _| . |_|  _| . |_|  |_|");
-
-}
-void prac4()
-{
-	name();
-	date();
+    return 0;
 }
 
-void name()
-{
-
-	puts("Моя программа,");
-	getchar();
-	puts("***************************************************");
-	puts("*                                                 *");
-	puts("*     тема: Разработка консольного приложения     *");
-	puts("*                                                 *");
-	puts("* выполнила: Лысюк Е.В. (группа бИД262-1)         *");
-	puts("*                                                 *");
-	puts("***************************************************");
-
+void task1(int m, int n) {
+    int s = 0;
+    int k = 0;
+    for (int i = m; i <= n; i++) {
+        s += i;
+        k++;
+    }
+    printf("Результат: %d\n", s);
+    printf("Выполнено итераций: %d\n", k);
 }
 
-void date()
-{
-	puts(" _    _     _   _     _    _ ");
-	puts("| |  |_    | |  _|   | |  |_|");
-	puts("|_|   _| . |_|  _| . |_|  |_|");
+void task1A(int n, int m) {
+    for (int i = 0; i <= n; i++) {
+        long long res = (long long)pow(2, i);
+        printf("2^%2d = %4lld\n", i, res);
+    }
+
+    int k_pow = 0;
+    while (pow(2, k_pow) < 1024) {
+        k_pow++;
+    }
+    printf("Результат: %dK\n", k_pow);
+
+    int i = 0;
+    while (pow(2, i) <= m) {
+        printf("%.1fK\n", pow(2, i));
+        i++;
+    }
 }
-void dz1()
-{
 
-	puts("Кораблик:");
+void task2(double step) {
+    double a = 0.2;
+    double b = 2.2;
+    double x, y;
 
-	getchar();
-	puts("                |\\              ");
-	puts("                | \\             ");
-	puts("                |  \\            ");
-	puts("                |   \\           ");
-	puts("                |    \\          ");
-	puts("                |     \\         ");
-	puts("                |      \\        ");
-	puts("                |_______\\       ");
-	puts("                |                ");
-	puts("      __________|__________      ");
-	puts("      \\                   /     ");
-	puts("       \\                 /      ");
-	puts("        \\_______________/       ");
+    printf("|   x   |  f(x)  |\n");
+    for (x = a; x <= b + 1e-9; x += step) {
+        y = 1.8 * pow(x, 2) - sin(10 * x);
+        printf("| %5.2f | %6.3f |\n", x, y);
+    }
 }
