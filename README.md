@@ -57,7 +57,7 @@ int main()
     switch (result3)
     {
     case -1:
-        puts("Ошибка: некорректный возраст");
+        puts("Ошибка");
         break;
     case 1:
         puts("Новорожденный");
@@ -105,10 +105,10 @@ int age(int num)
     case 1: case 2:
         return 3;
         break;
-    case 3: case 4: case 5: case 6: case 7:
+    case 3: case 4: case 5: case 6:
         return 4;
         break;
-    case 8: case 9: case 10: case 11: case 12:
+    case 7: case 8: case 9: case 10: case 11: case 12:
         return 5;
         break;
     case 13: case 14: case 15: case 16: case 17:
