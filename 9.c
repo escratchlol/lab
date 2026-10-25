@@ -1,182 +1,211 @@
 #include <stdio.h>
 #include <locale.h>
+#include <math.h>
 
-void task1_1_pifagor();      
-void task1_2_triangle();   
-void task1_3_addition();       
-void task2_digit_analysis();  
-void task3_rectangle();          
+#define ROW 9
+#define COL 9
+#define PI 3.14159265358979
 
-int main() {
-    setlocale(LC_ALL, "Ru");
-    char choice;
+int mult(int a, int b);
+int sum(int a, int b);
+int count_even(int n);
+double vx(int k, double d1, double d2, double a);
+double vy(int k, double d1, double d2, double a);
+int in_quad(double x, double y, double d1, double d2, double a);
+void draw_figure(char sym, double d1, double d2, double ang);
 
-    do {
-        printf("ВЫБЕРИТЕ ЗАДАНИЕ ДЛЯ ПРОВЕРКИ:\n");
-        printf("1 - Таблица Пифагора (Задание 1.1)\n");
-        printf("2 - Нижний левый треугольник (Задание 1.2)\n");
-        printf("3 - Таблица сложения (Задание 1.3)\n");
-        printf("4 - Анализ цифр числа (Задание 2)\n");
-        printf("5 - Пустой прямоугольник (Задание 3)\n");
-        printf("0 - Выход\n");
-        printf("Ваш выбор: ");
-        scanf(" %c", &choice);
+int main()
+{
+	setlocale(LC_ALL, "Ru");
 
-        switch (choice) {
-            case '1': task1_1_pifagor(); break;
-            case '2': task1_2_triangle(); break;
-            case '3': task1_3_addition(); break;
-            case '4': task2_digit_analysis(); break;
-            case '5': task3_rectangle(); break;
-            case '0': printf("Выход из программы...\n"); break;
-            default: printf("Неверный ввод! Попробуйте снова.\n"); break;
-        }
-    } while (choice != '0');
+	puts("задание 1 (таблица Пифагора):");
+	for (int row = 1; row <= ROW; ++row)
+	{
+		for (int col = 1; col <= COL; col++)
+		{
+			printf("%5d", mult(col, row));
+		}
+		printf("\n");
+	}
 
-    return 0;
-}
+	puts("\nзадание 1.2 (левый нижний треугольник):");
+	for (int row = 1; row <= ROW; ++row)
+	{
+		for (int col = 1; col <= row; col++)
+		{
+			printf("%5d", mult(col, row));
+		}
+		printf("\n");
+	}
 
-void task1_1_pifagor() {
-    int row, col;
-    printf("\n--- Таблица Пифагора ---\n");
+	puts("\nзадание 1.3 (вариант 15, таблица сложения):");
+	for (int a = 1; a <= 9; a++)
+	{
+		for (int b = 1; b <= 9; b++)
+		{
+			printf("%d + %d = %2d   ", a, b, sum(a, b));
+		}
+		printf("\n");
+	}
 
-    printf("    ");
-    for (col = 1; col <= 9; col++) printf("%4d", col);
-    printf("\n");
 
-    for (row = 1; row <= 9; row++) {
-        printf("%3d ", row);
-        for (col = 1; col <= 9; col++) {
-            printf("%4d", row * col);
-        }
-        printf("\n");
-    }
-}
+	puts("\nзадание 2 (количество чётных цифр):");
+	while (1)
+	{
+		int num;
+		char again;
+		printf("Введите число: ");
+		scanf("%d", &num);
+		int cnt = count_even(num);
+		printf("Чётных цифр: %d\n", cnt);
+		printf("Продолжить? (Да - y, нет - n): ");
+		scanf(" %c", &again);
+		if (again == 'n')
+		{
+			break;
+		}
+	}
 
-void task1_2_triangle() {
-    int row, col;
-    printf("\n--- Нижний левый треугольник ---\n");
 
-    for (row = 9; row >= 1; row--) {
-        for (col = 1; col <= row; col++) {
-            printf("%5d", col * row);
-        }
-        printf("\n");
-    }
-}
+	puts("\nзадание 3 (четырёхугольник по диагоналям и углу):");
+	while (1)
+	{
+		char sym;
+		double d1, d2, ang;
+		printf("Введите символ, из которого будет строиться фигура: ");
+		scanf(" %c", &sym);
+		printf("Введите d1: ");
+		scanf("%lf", &d1);
+		printf("Введите d2: ");
+		scanf("%lf", &d2);
+		printf("Введите угол между диагоналями (в градусах): ");
+		scanf("%lf", &ang);
 
-void task1_3_addition() {
-    printf("\n--- Полная таблица сложения ---\n");
-    for (int i = 1; i <= 9; i++) {
-        for (int j = 1; j <= 9; j++) {
+		draw_figure(sym, d1, d2, ang);
 
-            printf("%d + %d = %2d\t", i, j, i + j);
-        }
-        printf("\n");
-    }
-}
+		int cont;
+		printf("\nПродолжить? (Да - введите любое число, Нет - введите 0): ");
+		scanf("%d", &cont);
+		if (cont == 0)
+		{
+			break;
+		}
+	}
 
-void task2_digit_analysis() {
-    char str[100]; 
-    printf("\n--- Анализ цифр длинного числа ---\n");
-    printf("Введите число: ");
-    scanf("%s", str);
-
-    int len = 0;
-    while (str[len] != '\0') len++; 
-
-    int count_3 = 0;
-    int count_even = 0;
-    int count_gt_5 = 0;
-    int sum_odd = 0;
-    int sum_ge_7 = 0;
-    long long prod_non_zero = 1;
-    int sum_even_no_last = 0;
-    int has_duplicates = 0;
-
-    for (int i = 0; i < len; i++) {
-        int digit = str[i] - '0'; 
-
-        if (digit == 3) count_3++;
-        if (digit % 2 == 0) count_even++;
-        if (digit > 5) count_gt_5++;
-        if (digit % 2 != 0) sum_odd += digit;
-        if (digit >= 7) sum_ge_7 += digit;
-        if (digit != 0) prod_non_zero *= digit;
-        
-        if (i < len - 1 && digit % 2 == 0) sum_even_no_last += digit;
-
-        if (i > 0 && str[i] == str[i-1]) has_duplicates = 1;
-    }
-
-    printf("\nРезультаты анализа:\n");
-    printf("1) Количество цифр 3: %d\n", count_3);
-    
-    int last_digit = str[len - 1] - '0';
-    int count_last = 0;
-    for (int i = 0; i < len; i++) {
-        if ((str[i] - '0') == last_digit) count_last++;
-    }
-    printf("2) Повторений последней цифры (%d): %d\n", last_digit, count_last);
-
-    printf("3) Количество четных цифр: %d\n", count_even);
-    printf("4) Количество цифр > 5: %d\n", count_gt_5);
-    printf("5) Сумма нечетных цифр: %d\n", sum_odd);
-    printf("6) Сумма цифр >= 7: %d\n", sum_ge_7);
-    printf("7) Произведение цифр (без 0): %lld\n", prod_non_zero);
-
-    if (len >= 2) {
-        int penultimate = str[len - 2] - '0';
-        int second = str[1] - '0';
-        printf("8) Произведение предпоследней (%d) и второй (%d): %d\n", penultimate, second, penultimate * second);
-    } else {
-        printf("8) Недостаточно цифр для вычисления.\n");
-    }
-
-    printf("9) Сумма четных цифр (без последней): %d\n", sum_even_no_last);
-    printf("10) Есть ли рядом стоящие одинаковые цифры? %s\n", has_duplicates ? "Да" : "Нет");
-
-    if (len % 2 == 0) {
-        int half = len / 2, sum1 = 0, sum2 = 0;
-        for (int i = 0; i < half; i++) sum1 += (str[i] - '0');
-        for (int i = half; i < len; i++) sum2 += (str[i] - '0');
-        printf("11) Сумма первой половины (%d) %s сумме второй (%d)\n", sum1, (sum1 == sum2) ? "равна" : "не равна", sum2);
-    } else {
-        printf("11) Число нечетной длины, нельзя разделить ровно пополам.\n");
-    }
-
-    int sum_even_pos = 0, sum_odd_pos = 0;
-    for (int i = 0; i < len; i++) {
-
-        int pos = len - i; 
-        if (pos % 2 == 0) sum_even_pos += (str[i] - '0');
-        else sum_odd_pos += (str[i] - '0');
-    }
-    printf("12) Произведение сумм четных и нечетных разрядов: %d\n", sum_even_pos * sum_odd_pos);
+	return 0;
 }
 
 
-void task3_rectangle() {
-    char symbol;
-    int height, width;
+int mult(int a, int b)
+{
+	return a * b;
+}
 
-    printf("\n--- Рисование пустого прямоугольника ---\n");
-    printf("Введите символ для рисования: ");
-    scanf(" %c", &symbol); 
-    printf("Введите высоту: ");
-    scanf("%d", &height);
-    printf("Введите ширину: ");
-    scanf("%d", &width);
+int sum(int a, int b)
+{
+	return a + b;
+}
 
-    printf("\nРезультат:\n");
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
-                printf("%c", symbol);
-            } else {
-                printf(" ");
-            }
-        }
-        printf("\n");
-    }
+int count_even(int n)
+{
+	if (n < 0)
+	{
+		n = -n;
+	}
+	if (n == 0)
+	{
+		return 1;
+	}
+	int cnt = 0;
+	while (n > 0)
+	{
+		if ((n % 10) % 2 == 0)
+		{
+			cnt++;
+		}
+		n /= 10;
+	}
+	return cnt;
+}
+
+void draw_figure(char sym, double d1, double d2, double ang)
+{
+	if (d1 <= 0 || d2 <= 0 || ang <= 0 || ang >= 180)
+	{
+		puts("ошибка: d1 и d2 должны быть больше 0, угол от 0 до 180");
+		return;
+	}
+
+	double ymax = fmax(vy(2, d1, d2, ang), 0);
+	double ymin = fmin(vy(4, d1, d2, ang), 0);
+	double xmax = fmax(vx(3, d1, d2, ang), vx(2, d1, d2, ang));
+	double xmin = fmin(vx(1, d1, d2, ang), vx(4, d1, d2, ang));
+
+	printf("\n");
+	for (int r = (int)ceil(ymax); r >= (int)floor(ymin); r--)
+	{
+		for (int cx = (int)floor(xmin * 2); cx <= (int)ceil(xmax * 2); cx++)
+		{
+			if (in_quad(cx * 0.5, r, d1, d2, ang))
+			{
+				printf("%c", sym);
+			}
+			else
+			{
+				printf(" ");
+			}
+		}
+		printf("\n");
+	}
+}
+
+double vx(int k, double d1, double d2, double a)
+{
+	double rad = a * PI / 180;
+	switch (k)
+	{
+	case 1:
+		return -0.4 * d1;
+	case 2:
+		return 0.6 * d2 * cos(rad);
+	case 3:
+		return 0.6 * d1;
+	default:
+		return -0.4 * d2 * cos(rad);
+	}
+}
+
+double vy(int k, double d1, double d2, double a)
+{
+	double rad = a * PI / 180;
+	switch (k)
+	{
+	case 2:
+		return 0.6 * d2 * sin(rad);
+	case 4:
+		return -0.4 * d2 * sin(rad);
+	default:
+		return 0;
+	}
+}
+
+int in_quad(double x, double y, double d1, double d2, double a)
+{
+	int pos = 0, neg = 0;
+	for (int k = 1; k <= 4; k++)
+	{
+		int next = (k == 4) ? 1 : k + 1;
+		double x1 = vx(k, d1, d2, a), y1 = vy(k, d1, d2, a);
+		double x2 = vx(next, d1, d2, a), y2 = vy(next, d1, d2, a);
+		double cross = (x2 - x1) * (y - y1) - (y2 - y1) * (x - x1);
+		if (cross > 1e-9)
+		{
+			pos = 1;
+		}
+		if (cross < -1e-9)
+		{
+			neg = 1;
+		}
+	}
+	return !(pos && neg);
 }
