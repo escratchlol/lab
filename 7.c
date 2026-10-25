@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <locale.h>
 
-#define error -123456
 
 float calculator(float x, char c, float y);
 int is_num(char c);
@@ -10,19 +9,19 @@ int age(int num);
 int main()
 
 {
-	setlocale(LC_ALL, "Ru");
+	setlocale(LC_ALL, "Russian");
 	char c;
 	printf("Введите символ: ");
 	scanf("%c", &c);
-	puts("задание 1:");
+	puts("заданиe 1:");
 	int result = is_num(c);
 	switch (result)
 	{
 	case 1:
-		puts("это цифра");
+		puts("Это цифра");
 		break;
 	case 0:
-		puts("это буква");
+		puts("Это буква");
 		break;
 	default:
 		puts("неизвестный символ");
@@ -31,59 +30,80 @@ int main()
 
 
 	puts("задание 2:");
-	puts("введите два числа и символ между ними: ");
+	puts("Введите два числа и символ между ними: ");
 	float x, y;
 	char c1;
-	scanf("%f %c %f”", &x, &c1, &y);
-	float result2 = calculator(x, c1, y);
-	if (result2 != error) {
-		printf("= %f\n", result2);
+	scanf("%f %c %f", &x, &c1, &y);
+	if (can_cal(x, c1, y))
+	{
+		printf("= %f\n", calculator(x, c1, y));
 	}
 	else
 	{
-		puts("ошибка");
+		puts("Ошибка");
 	}
+
 
 
 	puts("задание 3:");
 	int num;
-	printf("введите число месяцев ребенка: ");
+	printf("Введите число месяцев ребенка: ");
 	scanf("%d", &num);
 
 	int result3 = age(num);
 	switch (result3)
 	{
 	case -1:
-		puts("ошибка");
+		puts("Ошибка");
 		break;
 	case 1:
-		puts("новорожденный");
+		puts("Новорожденный");
 		break;
 	case 2:
-		puts("младенец");
+		puts("Младенец");
 		break;
 	case 3:
-		puts("ранее детсво");
+		puts("Ранее детсво");
 		break;
 	case 4:
-		puts("дошкольник");
+		puts("Дошкольник");
 		break;
 	case 5:
 		puts("школьник");
 		break;
 	case 6:
-		puts("подросток");
+		puts("Подросток");
 		break;
 	case 7:
-		puts("взрослый");
+		puts("Взрослый");
 		break;
 	default:
 		break;
 	}
-	return 0;
+
+
 }
 
-
+int can_cal(float x, char c, float y)
+{
+	switch (c)
+	{
+	case '+': case '-': case '*':
+		return 1;
+		break;
+	case '/':
+		if (y == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	default:
+		return 0;
+	}
+}
 int is_num(char c)
 {
 	switch (c)
@@ -118,16 +138,7 @@ float calculator(float x, char c, float y)
 		return x * y;
 		break;
 	case '/':
-		if (y == 0)
-		{
-			return error;
-		}
-		else
-		{
-			return x / y;
-		}
-	default:
-		return error;
+		return x / y;
 	}
 }
 
