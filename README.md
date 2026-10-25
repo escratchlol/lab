@@ -46,7 +46,8 @@
 
 ### Блок-схема
 
-<img width="1204" height="784" alt="lab6" src="https://github.com/user-attachments/assets/326b16f6-5c18-465c-8267-18e63cbba839" />
+<img width="941" height="784" alt="lab6" src="https://github.com/user-attachments/assets/bdadf095-f35c-485e-b065-e4e53c582195" />
+
 
 ## 2. Реализация программы
 
