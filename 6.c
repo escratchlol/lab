@@ -38,11 +38,11 @@ int main() {
     scanf("%d", &B);
 
     int a = prac3(A, B);
-    if (a == 1) {
+    if (a == -1) {
         printf("Ошибка: деление на ноль\n");
     }
     else {
-        printf("%s\n", (A % B == 0) ? "Да" : "Нет");
+        printf("%s\n", (a == 0) ? "Да" : "Нет");
     }
 
     printf("\nдз\n\n");
@@ -91,10 +91,14 @@ double prac2(double x) {
 int prac3(int A, int B) {
     int a = 0;
     if (B == 0) {
-        a = 1;
+        a = -1;
+        return a;
+    }
+    if (A % B == 0) {
+        a = 0;
     }
     else {
-        a = 0;
+        a = 1;
     }
     return a;
 }
