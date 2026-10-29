@@ -23,18 +23,20 @@ int main()
 {
     setlocale(LC_ALL, "Ru");
 
-    puts("задание 1");
+    puts("Задание 1:");
     double x;
     printf("Введите x: ");
     scanf("%lf", &x);
     double Fa = fa(x);
     double Fb = fb(x);
-    printf("Fa=%lf , Fb=%lf\n ", Fa, Fb);
-    printf("%lf (произведение)\n%lf (разность квадратов)\n%lf (удвоенная сумма)\n", Fa * Fb, Fa * Fa - Fb * Fb, 2 * Fa + 2 * Fb);
 
+    char buf1[64], buf2[64];
+    snprintf(buf1, sizeof buf1, "%.4lf", Fa);
+    snprintf(buf2, sizeof buf2, "%.4lf", Fb);
+    for (char* p = buf1; *p; p++) if (*p == '.') *p = ',';
+    for (char* p = buf2; *p; p++) if (*p == '.') *p = ',';
 
-
-    printf("Fa=%lf , Fb=%lf\n", Fa, Fb);
+    printf("fa(x)=%s , fb(x)=%s\n", buf1, buf2);
 
     int choice;
     while (1) {
@@ -67,7 +69,7 @@ int main()
             printf("%lf (произведение), %lf (разность квадратов), %lf (удвоенная сумма)\n",
                 Fa * Fb, Fa * Fa - Fb * Fb, 2 * Fa + 2 * Fb);
             break;
-        deFault:
+        default:
             printf("Неверный выбор! Попробуйте снова.\n");
         }
     }
@@ -104,20 +106,18 @@ int main()
 
 
     puts("Задание 3");
+
+    double d1, d2, ang;
+    printf("\nВведите d1: ");
+    scanf("%lf", &d1);
+    printf("Введите d2: ");
+    scanf("%lf", &d2);
+    printf("Введите угол между диагоналями (в градусах): ");
+    scanf("%lf", &ang);
+    printf("\n\n\n");
+
     int op;
     while (1) {
-        char sym;
-        double d1, d2, ang;
-        printf("\nВведите символ, из которого будет строиться фигура: ");
-        scanf(" %c", &sym);
-        printf("Введите d1: ");
-        scanf("%lf", &d1);
-        printf("Введите d2: ");
-        scanf("%lf", &d2);
-        printf("Введите угол между диагоналями (в градусах): ");
-        scanf("%lf", &ang);
-        printf("\n\n\n");
-
         printf("\n--- Меню для четырехугольника ---\n");
         printf("1 - рассчитать площадь\n");
         printf("2 - вывести определение фигуры\n");
@@ -126,26 +126,32 @@ int main()
         printf("Ваш выбор: ");
         scanf("%d", &op);
 
-        if (op == 0) break;
+        if (op == 0) {
+            break;
+        }
 
         switch (op) {
         case 1: {
-            if (!param_ok(d1, d2, ang))
-            {
+            if (!param_ok(d1, d2, ang)) {
                 puts("ошибка: d1 и d2 должны быть больше 0, угол от 0 до 180");
             }
-            printf("S = %lf", S(d1, d2, ang));
+            else {
+                printf("S = %lf\n", S(d1, d2, ang));
+            }
             break;
         }
         case 2:
             printf("Четырёхугольник - это геометрическая фигура (многоугольник), которая состоит из четырёх точек (вершин) и четырёх отрезков (сторон), последовательно соединяющих эти точки. При этом должны соблюдаться два условия: никакие три из данных точек не лежат на одной прямой; соединяющие их отрезки не пересекаются(не имеют общих внутренних точек).\n");
             break;
         case 3: {
-            if (!param_ok(d1, d2, ang))
-            {
+            if (!param_ok(d1, d2, ang)) {
                 puts("ошибка: d1 и d2 должны быть больше 0, угол от 0 до 180");
             }
             else {
+                char sym;
+                printf("Введите символ, из которого будет строиться фигура: ");
+                scanf(" %c", &sym);
+
                 double ymax = fmax(fmax(vy(1, d1, d2, ang), vy(2, d1, d2, ang)),
                     fmax(vy(3, d1, d2, ang), vy(4, d1, d2, ang)));
                 double ymin = fmin(fmin(vy(1, d1, d2, ang), vy(2, d1, d2, ang)),
@@ -156,10 +162,8 @@ int main()
                     fmin(vx(3, d1, d2, ang), vx(4, d1, d2, ang)));
 
                 printf("\n");
-                for (int r = (int)ceil(ymax); r >= (int)floor(ymin); r--)
-                {
-                    for (int cx = (int)floor(xmin * 2); cx <= (int)ceil(xmax * 2); cx++)
-                    {
+                for (int r = (int)ceil(ymax); r >= (int)floor(ymin); r--) {
+                    for (int cx = (int)floor(xmin * 2); cx <= (int)ceil(xmax * 2); cx++) {
                         putchar(f_char(cx * 0.5, r, d1, d2, ang, sym));
                     }
                     putchar('\n');
