@@ -13,7 +13,6 @@ double asin_eps(double x, double eps);
 double vx(int k, double d1, double d2, double a);
 double vy(int k, double d1, double d2, double a);
 int in_quad(double x, double y, double d1, double d2, double a);
-void draw_figure(char sym, double d1, double d2, double ang);
 int param_ok(double d1, double d2, double ang);
 double dist(double px, double py, double x1, double y1, double x2, double y2);
 char f_char(double x, double y, double d1, double d2, double a, char sym);
@@ -114,7 +113,7 @@ int main()
     scanf("%lf", &d2);
     printf("Введите угол между диагоналями (в градусах): ");
     scanf("%lf", &ang);
-    printf("\n\n\n");
+    printf("\n");
 
     int op;
     while (1) {
