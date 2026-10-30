@@ -64,28 +64,7 @@
    - иначе (k = 1 или 3): вернуть 0.
 4. **Конец**.
 
-**Часть 6: функция in_quad (проверка принадлежности точки четырёхугольнику)**
-1. **Начало функции**: получение x, y, d1, d2, a.
-2. Инициализировать флаги pos = 0, neg = 0.
-3. Для каждого ребра k от 1 до 4:
-   - определить следующую вершину next (1→2→3→4→1);
-   - вычислить координаты вершин (x1, y1) и (x2, y2) через vx и vy;
-   - вычислить векторное произведение cross = (x2 - x1)*(y - y1) - (y2 - y1)*(x - x1);
-   - если cross > 1e-9, установить pos = 1;
-   - если cross < -1e-9, установить neg = 1.
-4. Если pos и neg одновременно истинны, точка вне фигуры (вернуть 0), иначе внутри или на границе (вернуть 1).
-5. **Конец**.
-
-**Часть 7: функция dist (расстояние от точки до отрезка)**
-1. **Начало функции**: получение px, py, x1, y1, x2, y2.
-2. Вычислить вектор отрезка (dx, dy) = (x2 - x1, y2 - y1).
-3. Найти проекцию точки на прямую: t = ((px - x1)*dx + (py - y1)*dy) / (dx*dx + dy*dy).
-4. Ограничить t отрезком [0, 1].
-5. Вычислить ближайшую точку на отрезке: cx = x1 + t*dx, cy = y1 + t*dy.
-6. Вернуть евклидово расстояние от (px, py) до (cx, cy).
-7. **Конец**.
-
-**Часть 8: функция f_char (выбор символа для точки)**
+**Часть 6: функция f_char (выбор символа для точки)**
 1. **Начало функции**: получение x, y, d1, d2, a, sym.
 2. Для каждого ребра k от 1 до 4:
    - определить следующую вершину next;
@@ -101,7 +80,7 @@
 
 ### Блок-схема
 
-
+<img width="1610" height="1769" alt="lab10" src="https://github.com/user-attachments/assets/0e1ff848-3e29-46ca-8c04-e30a09a03eb2" />
 
 ## 2. Реализация программы
 
@@ -114,9 +93,7 @@
 
 double vx(int k, double d1, double d2, double a);
 double vy(int k, double d1, double d2, double a);
-int in_quad(double x, double y, double d1, double d2, double a);
 int param_ok(double d1, double d2, double ang);
-double dist(double px, double py, double x1, double y1, double x2, double y2);
 char f_char(double x, double y, double d1, double d2, double a, char sym);
 double S(double d1, double d2, double a);
 
@@ -238,41 +215,6 @@ double vy(int k, double d1, double d2, double a)
     }
 }
 
-int in_quad(double x, double y, double d1, double d2, double a)
-{
-    int pos = 0, neg = 0;
-    for (int k = 1; k <= 4; k++) {
-        int next = (k == 4) ? 1 : k + 1;
-        double x1 = vx(k, d1, d2, a), y1 = vy(k, d1, d2, a);
-        double x2 = vx(next, d1, d2, a), y2 = vy(next, d1, d2, a);
-        double cross = (x2 - x1) * (y - y1) - (y2 - y1) * (x - x1);
-        if (cross > 1e-9) {
-            pos = 1;
-        }
-        if (cross < -1e-9) {
-            neg = 1;
-        }
-    }
-    return !(pos && neg);
-}
-
-double dist(double px, double py, double x1, double y1, double x2, double y2)
-{
-    double dx = x2 - x1;
-    double dy = y2 - y1;
-    double t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy);
-    if (t < 0) {
-        t = 0;
-    }
-    else if (t > 1) {
-        t = 1;
-    }
-    double cx = x1 + t * dx;
-    double cy = y1 + t * dy;
-    double ex = px - cx;
-    double ey = py - cy;
-    return sqrt(ex * ex + ey * ey);
-}
 
 char f_char(double x, double y, double d1, double d2, double a, char sym)
 {
