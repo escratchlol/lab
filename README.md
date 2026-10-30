@@ -80,7 +80,7 @@
 
 ### Блок-схема
 
-<img width="1610" height="1769" alt="lab10" src="https://github.com/user-attachments/assets/0e1ff848-3e29-46ca-8c04-e30a09a03eb2" />
+<img width="1610" height="1769" alt="lab10" src="https://github.com/user-attachments/assets/e57582b6-f2f1-4777-ac0a-beee79bfdc8b" />
 
 ## 2. Реализация программы
 
