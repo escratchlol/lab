@@ -26,6 +26,7 @@ int main()
     for (int i = 0; i < count; i++) {
         printf("%c!", symbol(i, count, c1, c2));
     }
+    printf("+");
     putchar('\n');
 
     puts("\nЗадание 1");
@@ -104,11 +105,20 @@ char symbol(int i, int n, char c1, char c2) {
 
 int sum(int m, int n) {
     int s = 0;
+    int cnt = 0;
     if (m <= n) {
-        for (int i = m; i <= n; i++) s += i;
+        for (int i = m; i <= n; i++) {
+            s += i;
+            cnt++;
+            printf("итерация %d: сумма = %d\n", cnt, s);
+        }
     }
     else {
-        for (int i = m; i >= n; i--) s += i;
+        for (int i = m; i >= n; i--) {
+            s += i;
+            cnt++;
+            printf("итерация %d: сумма = %d\n", cnt, s);
+        }
     }
     return s;
 }
