@@ -35,7 +35,7 @@
 
 ### Блок-схема
 
-<img width="1041" height="835" alt="image" src="https://github.com/user-attachments/assets/14bed15f-dfce-4d4a-a99d-518f832cbeb5" />
+<img width="1680" height="1319" alt="lab99" src="https://github.com/user-attachments/assets/b457a61c-99d6-44ca-aef0-455737edf41b" />
 
 ## 2. Реализация программы
 
