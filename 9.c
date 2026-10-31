@@ -11,9 +11,7 @@ int sum(int a, int b);
 int count_even(int n);
 double vx(int k, double d1, double d2, double a);
 double vy(int k, double d1, double d2, double a);
-int in_quad(double x, double y, double d1, double d2, double a);
 int param_ok(double d1, double d2, double ang);
-double dist(double px, double py, double x1, double y1, double x2, double y2);
 char f_char(double x, double y, double d1, double d2, double a, char sym);
 
 int main()
@@ -185,49 +183,6 @@ double vy(int k, double d1, double d2, double a)
 	default:
 		return 0;
 	}
-}
-
-int in_quad(double x, double y, double d1, double d2, double a)
-{
-	int pos = 0, neg = 0;
-	for (int k = 1; k <= 4; k++)
-	{
-		int next = (k == 4) ? 1 : k + 1;
-		double x1 = vx(k, d1, d2, a), y1 = vy(k, d1, d2, a);
-		double x2 = vx(next, d1, d2, a), y2 = vy(next, d1, d2, a);
-		double cross = (x2 - x1) * (y - y1) - (y2 - y1) * (x - x1);
-		if (cross > 1e-9)
-		{
-			pos = 1;
-		}
-		if (cross < -1e-9)
-		{
-			neg = 1;
-		}
-	}
-	return !(pos && neg);
-}
-
-double dist(double px, double py, double x1, double y1, double x2, double y2)
-{
-	double dx = x2 - x1;
-	double dy = y2 - y1;
-	double t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy);
-	if (t < 0)
-	{
-		t = 0;
-	}
-	else if (t > 1)
-	{
-		t = 1;
-	}
-
-	double cx = x1 + t * dx;
-	double cy = y1 + t * dy;
-
-	double ex = px - cx;
-	double ey = py - cy;
-	return sqrt(ex * ex + ey * ey);
 }
 
 char f_char(double x, double y, double d1, double d2, double a, char sym)
