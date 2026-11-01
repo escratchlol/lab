@@ -35,7 +35,24 @@ int main()
     scanf("%d", &m);
     printf("Введите n: ");
     scanf("%d", &n);
-    int s = sum(m, n);
+
+    int cnt = 0;
+    int s = 0;
+    if (m <= n) {
+        for (int i = m; i <= n; i++) {
+            s += i;
+            cnt++;
+            printf("итерация %d: сумма = %d\n", cnt, s);
+        }
+    }
+    else {
+        for (int i = m; i >= n; i--) {
+            s += i;
+            cnt++;
+            printf("итерация %d: сумма = %d\n", cnt, s);
+        }
+    }
+    s = sum(m, n);
     int k = (m >= n) ? (m - n + 1) : (n - m + 1);
     printf("выполнено %d раз\nсумма = %d\n", k, s);
 
@@ -105,19 +122,14 @@ char symbol(int i, int n, char c1, char c2) {
 
 int sum(int m, int n) {
     int s = 0;
-    int cnt = 0;
     if (m <= n) {
         for (int i = m; i <= n; i++) {
             s += i;
-            cnt++;
-            printf("итерация %d: сумма = %d\n", cnt, s);
         }
     }
     else {
         for (int i = m; i >= n; i--) {
             s += i;
-            cnt++;
-            printf("итерация %d: сумма = %d\n", cnt, s);
         }
     }
     return s;
