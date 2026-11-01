@@ -27,13 +27,7 @@ int main()
     double Fa = fa(x);
     double Fb = fb(x);
 
-    char buf1[64], buf2[64];
-    snprintf(buf1, sizeof buf1, "%.4lf", Fa);
-    snprintf(buf2, sizeof buf2, "%.4lf", Fb);
-    for (char* p = buf1; *p; p++) if (*p == '.') *p = ',';
-    for (char* p = buf2; *p; p++) if (*p == '.') *p = ',';
-
-    printf("fa(x)=%s , fb(x)=%s\n", buf1, buf2);
+    printf("fa(x)=%.4lf , fb(x)=%.4lf\n", Fa, Fb);
 
     int choice;
     while (1) {
@@ -77,10 +71,18 @@ int main()
     double x_asin;
     printf("Введите x (|x| < 1) для arcsin: ");
     scanf("%lf", &x_asin);
+    if (fabs(x_asin) >= 1.0) {
+        puts("Ошибка: |x| должен быть < 1.");
+        return 1;
+    }
 
     int N;
     printf("Введите N (количество членов ряда): ");
     scanf("%d", &N);
+    if (N < 1) {
+        puts("Ошибка: N должен быть >= 1.");
+        return 1;
+    }
 
     double exact = asin(x_asin);
 
@@ -95,6 +97,10 @@ int main()
     double eps;
     printf("\nВведите eps для asin_eps: ");
     scanf("%lf", &eps);
+    if (eps <= 0) {
+        puts("Ошибка: eps должен быть > 0.");
+        return 1;
+    }
 
     double approx_eps = asin_eps(x_asin, eps);
     printf("\nasin_eps(%.4lf, %g) = %.10lf\n", x_asin, eps, approx_eps);
@@ -194,7 +200,7 @@ double fb(double x)
 double asin_n(double x, int N) {
     double sum = x;
 
-    for (int n = 1; n <= N; n++) {
+    for (int n = 1; n < N; n++) {
         double num = 1.0;
         double den = 1.0;
         for (int i = 1; i <= n; i++) {
