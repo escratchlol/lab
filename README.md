@@ -67,7 +67,7 @@
 
 ### Блок-схема
 
-<img width="1680" height="1319" alt="lab99" src="https://github.com/user-attachments/assets/b457a61c-99d6-44ca-aef0-455737edf41b" />
+<img width="1680" height="1319" alt="lab99" src="https://github.com/user-attachments/assets/4acdb887-4716-4ef0-82ad-c56690a8037f" />
 
 ## 2. Реализация программы
 
